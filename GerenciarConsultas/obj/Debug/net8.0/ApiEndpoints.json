@@ -1,0 +1,76 @@
+[
+  {
+    "ContainingType": "GerenciarConsultas.Controllers.PacienteController",
+    "Method": "buscarPaciente",
+    "RelativePath": "api/Paciente",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "GerenciarConsultas.Controllers.PacienteController",
+    "Method": "CriarPaciente",
+    "RelativePath": "api/Paciente",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "pacienteCriarDto",
+        "Type": "GerenciarConsultas.DTO.PacienteCriarDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "GerenciarConsultas.Controllers.PacienteController",
+    "Method": "EditarPaciente",
+    "RelativePath": "api/Paciente",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "editarPacienteDto",
+        "Type": "GerenciarConsultas.DTO.EditarPacienteDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "GerenciarConsultas.Controllers.PacienteController",
+    "Method": "deletarPaciente",
+    "RelativePath": "api/Paciente",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "ususarioId",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "GerenciarConsultas.Controllers.PacienteController",
+    "Method": "BuscarPacientePorId",
+    "RelativePath": "api/Paciente/{pacienteId}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "pacienteId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  }
+]

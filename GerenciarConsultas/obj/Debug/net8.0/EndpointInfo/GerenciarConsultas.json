@@ -1,0 +1,191 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "GerenciarConsultas",
+    "version": "1.0"
+  },
+  "paths": {
+    "/api/Paciente": {
+      "get": {
+        "tags": [
+          "Paciente"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Paciente"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PacienteCriarDto"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PacienteCriarDto"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/PacienteCriarDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Paciente"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/EditarPacienteDto"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/EditarPacienteDto"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/EditarPacienteDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Paciente"
+        ],
+        "parameters": [
+          {
+            "name": "ususarioId",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Paciente/{pacienteId}": {
+      "get": {
+        "tags": [
+          "Paciente"
+        ],
+        "parameters": [
+          {
+            "name": "pacienteId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "EditarPacienteDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "nome": {
+            "type": "string",
+            "nullable": true
+          },
+          "dataNascimento": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "telefone": {
+            "type": "integer",
+            "format": "int64",
+            "nullable": true
+          },
+          "cpf": {
+            "type": "integer",
+            "format": "int64",
+            "nullable": true
+          },
+          "email": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "PacienteCriarDto": {
+        "type": "object",
+        "properties": {
+          "nome": {
+            "type": "string",
+            "nullable": true
+          },
+          "dataNascimento": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "telefone": {
+            "type": "integer",
+            "format": "int64",
+            "nullable": true
+          },
+          "cpf": {
+            "type": "integer",
+            "format": "int64",
+            "nullable": true
+          },
+          "email": {
+            "type": "string",
+            "nullable": true
+          },
+          "senha": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  }
+}
