@@ -78,3 +78,4 @@ C:\Users\User\OneDrive\Documentos\TrabalhoFinal\GerenciarConsultas\GerenciarCons
 C:\Users\User\OneDrive\Documentos\TrabalhoFinal\GerenciarConsultas\GerenciarConsultas\obj\Debug\net8.0\GerenciarConsultas.pdb
 C:\Users\User\OneDrive\Documentos\TrabalhoFinal\GerenciarConsultas\GerenciarConsultas\obj\Debug\net8.0\GerenciarConsultas.genruntimeconfig.cache
 C:\Users\User\OneDrive\Documentos\TrabalhoFinal\GerenciarConsultas\GerenciarConsultas\obj\Debug\net8.0\ref\GerenciarConsultas.dll
+C:\Users\User\OneDrive\Documentos\TrabalhoFinal\GerenciarConsultas\GerenciarConsultas\obj\Debug\net8.0\GerenciarConsultas.sourcelink.json

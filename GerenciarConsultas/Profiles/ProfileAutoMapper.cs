@@ -8,8 +8,11 @@ namespace GerenciarConsultas.Profiles
     {
         public ProfileAutoMapper() {
           
-            CreateMap<Pacientes, PacienteCriarDto>(); ;
+            CreateMap<Pacientes, PacienteDTO>(); 
             CreateMap<EditarPacienteDto, Pacientes>();
+
+            CreateMap<Medicos, MedicoListarDTO>();
+            CreateMap<MedicoEditarDto, Medicos>();
 
         }
 

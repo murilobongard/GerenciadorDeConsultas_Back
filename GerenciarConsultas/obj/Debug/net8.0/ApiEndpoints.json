@@ -1,5 +1,79 @@
 [
   {
+    "ContainingType": "GerenciarConsultas.Controllers.MedicoController",
+    "Method": "BuscarUsuarios",
+    "RelativePath": "api/Medico",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "GerenciarConsultas.Controllers.MedicoController",
+    "Method": "CriarMedico",
+    "RelativePath": "api/Medico",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "medicoCriarDto",
+        "Type": "GerenciarConsultas.DTO.MedicoCriarDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "GerenciarConsultas.Controllers.MedicoController",
+    "Method": "EditarUsuario",
+    "RelativePath": "api/Medico",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "medicoEditarDto",
+        "Type": "GerenciarConsultas.DTO.MedicoEditarDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "GerenciarConsultas.Controllers.MedicoController",
+    "Method": "RemoverMedicos",
+    "RelativePath": "api/Medico",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "medicoId",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "GerenciarConsultas.Controllers.MedicoController",
+    "Method": "BuscarMedicoPorId",
+    "RelativePath": "api/Medico/{medicoId}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "medicoId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "GerenciarConsultas.Controllers.PacienteController",
     "Method": "buscarPaciente",
     "RelativePath": "api/Paciente",

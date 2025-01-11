@@ -13,7 +13,7 @@ builder.Services.AddScoped<IPacienteInterface, PacienteService>();
 builder.Services.AddAutoMapper(typeof(Program));
 builder.Services.AddAutoMapper(typeof(ProfileAutoMapper));
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
-
+builder.Services.AddScoped<IMedicoInterface, MedicoService>();
 var app = builder.Build();
 
 
