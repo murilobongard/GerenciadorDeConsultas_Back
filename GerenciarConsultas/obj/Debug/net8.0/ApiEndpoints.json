@@ -1,5 +1,84 @@
 [
   {
+    "ContainingType": "GerenciarConsultas.Controllers.ConsultaController",
+    "Method": "GetAll",
+    "RelativePath": "api/Consulta",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "GerenciarConsultas.Controllers.ConsultaController",
+    "Method": "Create",
+    "RelativePath": "api/Consulta",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "consultaCriarDto",
+        "Type": "GerenciarConsultas.DTO.ConsultaCriarDtos",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "GerenciarConsultas.Controllers.ConsultaController",
+    "Method": "GetById",
+    "RelativePath": "api/Consulta/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "GerenciarConsultas.Controllers.ConsultaController",
+    "Method": "Update",
+    "RelativePath": "api/Consulta/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "consultaEditarDto",
+        "Type": "GerenciarConsultas.DTO.ConsultaEditarDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "GerenciarConsultas.Controllers.ConsultaController",
+    "Method": "Delete",
+    "RelativePath": "api/Consulta/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "GerenciarConsultas.Controllers.MedicoController",
     "Method": "BuscarUsuarios",
     "RelativePath": "api/Medico",

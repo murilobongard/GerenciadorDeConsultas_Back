@@ -159,7 +159,7 @@ namespace GerenciarConsultas.Services
                 var medicosMapeados = _mapper.Map<List<MedicoListarDTO>>(medicos);
 
                 response.Dados = medicosMapeados;
-                response.Mensagem = "Medicos listados com sucesso";
+                response.Mensagem = "Medicos deletado com sucesso";
             }
             return response;    
         }

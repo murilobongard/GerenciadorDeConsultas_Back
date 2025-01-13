@@ -1,0 +1,88 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\User\\OneDrive\\Documentos\\TrabalhoFinal\\GerenciadorDeConsultas_Back\\GerenciarConsultas\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{E53F2E13-7AD2-47B4-BE7A-CCEEFAB6D311}|GerenciarConsultas.csproj|c:\\users\\user\\onedrive\\documentos\\trabalhofinal\\gerenciadordeconsultas_back\\gerenciarconsultas\\services\\consultaservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E53F2E13-7AD2-47B4-BE7A-CCEEFAB6D311}|GerenciarConsultas.csproj|solutionrelative:services\\consultaservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E53F2E13-7AD2-47B4-BE7A-CCEEFAB6D311}|GerenciarConsultas.csproj|c:\\users\\user\\onedrive\\documentos\\trabalhofinal\\gerenciadordeconsultas_back\\gerenciarconsultas\\dto\\consultalistadt0.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E53F2E13-7AD2-47B4-BE7A-CCEEFAB6D311}|GerenciarConsultas.csproj|solutionrelative:dto\\consultalistadt0.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E53F2E13-7AD2-47B4-BE7A-CCEEFAB6D311}|GerenciarConsultas.csproj|c:\\users\\user\\onedrive\\documentos\\trabalhofinal\\gerenciadordeconsultas_back\\gerenciarconsultas\\controllers\\consultascontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E53F2E13-7AD2-47B4-BE7A-CCEEFAB6D311}|GerenciarConsultas.csproj|solutionrelative:controllers\\consultascontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E53F2E13-7AD2-47B4-BE7A-CCEEFAB6D311}|GerenciarConsultas.csproj|c:\\users\\user\\onedrive\\documentos\\trabalhofinal\\gerenciadordeconsultas_back\\gerenciarconsultas\\model\\consulta.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E53F2E13-7AD2-47B4-BE7A-CCEEFAB6D311}|GerenciarConsultas.csproj|solutionrelative:model\\consulta.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 1,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "ConsultaListaDT0.cs",
+              "DocumentMoniker": "C:\\Users\\User\\OneDrive\\Documentos\\TrabalhoFinal\\GerenciadorDeConsultas_Back\\GerenciarConsultas\\DTO\\ConsultaListaDT0.cs",
+              "RelativeDocumentMoniker": "DTO\\ConsultaListaDT0.cs",
+              "ToolTip": "C:\\Users\\User\\OneDrive\\Documentos\\TrabalhoFinal\\GerenciadorDeConsultas_Back\\GerenciarConsultas\\DTO\\ConsultaListaDT0.cs",
+              "RelativeToolTip": "DTO\\ConsultaListaDT0.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-13T01:23:10.688Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "ConsultaService.cs",
+              "DocumentMoniker": "C:\\Users\\User\\OneDrive\\Documentos\\TrabalhoFinal\\GerenciadorDeConsultas_Back\\GerenciarConsultas\\Services\\ConsultaService.cs",
+              "RelativeDocumentMoniker": "Services\\ConsultaService.cs",
+              "ToolTip": "C:\\Users\\User\\OneDrive\\Documentos\\TrabalhoFinal\\GerenciadorDeConsultas_Back\\GerenciarConsultas\\Services\\ConsultaService.cs",
+              "RelativeToolTip": "Services\\ConsultaService.cs",
+              "ViewState": "AgIAADgAAAAAAAAAAAAQwDcAAAAQAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-13T01:22:41.582Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "Consulta.cs",
+              "DocumentMoniker": "C:\\Users\\User\\OneDrive\\Documentos\\TrabalhoFinal\\GerenciadorDeConsultas_Back\\GerenciarConsultas\\Model\\Consulta.cs",
+              "RelativeDocumentMoniker": "Model\\Consulta.cs",
+              "ToolTip": "C:\\Users\\User\\OneDrive\\Documentos\\TrabalhoFinal\\GerenciadorDeConsultas_Back\\GerenciarConsultas\\Model\\Consulta.cs",
+              "RelativeToolTip": "Model\\Consulta.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-12T18:40:59.254Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "ConsultasController.cs",
+              "DocumentMoniker": "C:\\Users\\User\\OneDrive\\Documentos\\TrabalhoFinal\\GerenciadorDeConsultas_Back\\GerenciarConsultas\\Controllers\\ConsultasController.cs",
+              "RelativeDocumentMoniker": "Controllers\\ConsultasController.cs",
+              "ToolTip": "C:\\Users\\User\\OneDrive\\Documentos\\TrabalhoFinal\\GerenciadorDeConsultas_Back\\GerenciarConsultas\\Controllers\\ConsultasController.cs",
+              "RelativeToolTip": "Controllers\\ConsultasController.cs",
+              "ViewState": "AgIAACEAAAAAAAAAAAAowDIAAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-12T18:40:36.774Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

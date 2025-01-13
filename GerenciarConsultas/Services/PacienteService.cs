@@ -43,26 +43,45 @@ namespace GerenciarConsultas.Services
 
         public async Task<ResponseModel<PacienteDTO>> BuscarPacientesId(int pacienteId)
         {
-            ResponseModel<PacienteDTO> response = new ResponseModel<PacienteDTO>();
+            var response = new ResponseModel<PacienteDTO>();
 
-            using (var connection = new SqlConnection(_configuration.GetConnectionString("DefaultConnection")))
+            try
             {
-                var pacienteBanco = await connection.QueryFirstOrDefaultAsync<Pacientes>("select * from Pacientes where id = @Id", new { Id = pacienteId });
-
-                if (pacienteBanco == null)
+                // Estabelecendo conexão com o banco de dados
+                using (var connection = new SqlConnection(_configuration.GetConnectionString("DefaultConnection")))
                 {
-                    response.Mensagem = "Nenhum usuario localizado!";
-                    response.Status = false;
-                    return response;
+                    // Buscando o paciente pelo ID
+                    var pacienteBanco = await connection.QueryFirstOrDefaultAsync<Pacientes>(
+                        "SELECT * FROM Pacientes WHERE Id = @Id", new { Id = pacienteId });
+
+                    // Se o paciente não for encontrado
+                    if (pacienteBanco == null)
+                    {
+                        response.Status = false;
+                        response.Mensagem = "Paciente não encontrado!";
+                        return response;
+                    }
+
+                    // Mapeando para o DTO
+                    var pacienteDTO = _mapper.Map<PacienteDTO>(pacienteBanco);
+
+                    // Configurando o retorno
+                    response.Status = true;
+                    response.Mensagem = "Paciente encontrado!";
+                    response.Dados = pacienteDTO;
                 }
-                var pacientemapeado = _mapper.Map<PacienteDTO>(pacienteBanco);
-                response.Dados = pacientemapeado;
-                response.Mensagem = "Usuario localizado com sucesso!";
-
             }
-            return response;
+            catch (Exception ex)
+            {
+                // Tratamento de erros
+                response.Status = false;
+                response.Mensagem = $"Erro ao buscar paciente: {ex.Message}";
+            }
 
+            return response;
         }
+
+
 
         public async Task<ResponseModel<PacienteDTO>> CriarPaciente(PacienteCriarDto pacienteCriarDto)
         {
@@ -99,10 +118,6 @@ namespace GerenciarConsultas.Services
             return pacientes.ToList();
         }
 
-        Task<ResponseModel<PacienteCriarDto>> IPacienteInterface.BuscarPacientesId(int pacienteId)
-        {
-            throw new NotImplementedException();
-        }
 
         public async Task<ResponseModel<List<PacienteCriarDto>>> EditarPaciente(EditarPacienteDto editarPacienteDto)
         {

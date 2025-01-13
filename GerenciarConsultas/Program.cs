@@ -1,4 +1,7 @@
-using GerenciarConsultas.Profiles;
+using System.Data;
+using System.Data.SqlClient;
+using GerenciarConsultas.Profiles; 
+using GerenciarConsultas.Repository;
 using GerenciarConsultas.Services;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -6,17 +9,17 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<IPacienteInterface, PacienteService>();
-builder.Services.AddAutoMapper(typeof(Program));
-builder.Services.AddAutoMapper(typeof(ProfileAutoMapper));
-builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+builder.Services.AddAutoMapper(typeof(ProfileAutoMapper)); // Corrigido para o nome correto do Profile
 builder.Services.AddScoped<IMedicoInterface, MedicoService>();
+builder.Services.AddScoped<IConsultaInterface, ConsultaService>();
+builder.Services.AddScoped<ConsultaService>();
+builder.Services.AddScoped<IDbConnection>(provider =>
+    new SqlConnection(builder.Configuration.GetConnectionString("DefaultConnection")));
+
 var app = builder.Build();
-
-
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

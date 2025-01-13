@@ -1,6 +1,5 @@
 ﻿using GerenciarConsultas.DTO;
 using GerenciarConsultas.Services;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GerenciarConsultas.Controllers
@@ -71,7 +70,7 @@ namespace GerenciarConsultas.Controllers
 
             if (medicos.Status == false)
             {
-                return BadRequest(medicos);
+                return NotFound(medicoId);
             }
             return Ok(medicos);
         }
