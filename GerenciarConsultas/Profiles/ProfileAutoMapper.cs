@@ -24,6 +24,9 @@ namespace GerenciarConsultas.Profiles
             CreateMap<Medicos, MedicoListarDTO>();
             CreateMap<MedicoEditarDto, Medicos>();
 
+            CreateMap<PacienteDTO, Pacientes>();
+            CreateMap<MedicoCriarDto, Medicos>();
+
         }
 
     }

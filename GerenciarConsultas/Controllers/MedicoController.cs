@@ -30,7 +30,7 @@ namespace GerenciarConsultas.Controllers
         [HttpGet("{medicoId}")]
         public async Task<IActionResult> BuscarMedicoPorId(int medicoId)
         {
-            var medicos = await _mediicoInterface.buscarMediscoPorId(medicoId);
+            var medicos = await _mediicoInterface.BuscarMedicoPorId(medicoId);
 
             if (medicos.Status == false)
             {
@@ -74,6 +74,18 @@ namespace GerenciarConsultas.Controllers
             }
             return Ok(medicos);
         }
+        [HttpGet("email/{email}")]
+        public async Task<IActionResult> BuscarMedicoPorEmail(string email)
+        {
+            var medico = await _mediicoInterface.BuscarMedicoPorEmail(email);
+
+            if (medico.Status == false)
+            {
+                return NotFound(medico);
+            }
+            return Ok(medico);
+        }
+
 
     }
 }

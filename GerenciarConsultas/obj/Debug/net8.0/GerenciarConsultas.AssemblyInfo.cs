@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("GerenciarConsultas")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+a4d6321903ac193723e7972e4f8a3c13ce8536f2")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+f4df5a0df28fb6a9e353e75f6e7cefcb181750ea")]
 [assembly: System.Reflection.AssemblyProductAttribute("GerenciarConsultas")]
 [assembly: System.Reflection.AssemblyTitleAttribute("GerenciarConsultas")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

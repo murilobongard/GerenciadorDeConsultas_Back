@@ -72,7 +72,20 @@ namespace GerenciarConsultas.Controllers
             if (pacientes.Status == false) { return BadRequest(pacientes); }
             return Ok(pacientes);
         }
+        
+        [HttpGet("email/{email}")]
+        public async Task<IActionResult> BuscarPacientePorEmail(string email)
+        {
+            var paciente = await _pacienteInterface.BuscarPacientePorEmail(email);
+
+            if (paciente.Status == false)
+            {
+                return NotFound(paciente);
+            }
+            return Ok(paciente);
+        }
+
 
     }
-    
+
 }

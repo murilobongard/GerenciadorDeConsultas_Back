@@ -10,16 +10,14 @@ namespace GerenciarConsultas.Services
     {
         private readonly IMapper _mapper;
         private readonly IConfiguration _configuration;
-        public MedicoService(IConfiguration configuration, IMapper mapper) { 
-             
+        public MedicoService(IConfiguration configuration, IMapper mapper)
+        {
             _configuration = configuration;
             _mapper = mapper;
         }
 
-     
         public async Task<ResponseModel<List<MedicoListarDTO>>> BuscarMedicos()
         {
-
             ResponseModel<List<MedicoListarDTO>> response = new ResponseModel<List<MedicoListarDTO>>();
 
             using (var connection = new SqlConnection(_configuration.GetConnectionString("DefaultConnection")))
@@ -35,39 +33,75 @@ namespace GerenciarConsultas.Services
 
                 var medicosMapeados = _mapper.Map<List<MedicoListarDTO>>(medicosBanco);
                 response.Dados = medicosMapeados;
-                response.Mensagem = "Medicos Localizados!!";
+                response.Mensagem = "Medicos Localizados!";
             }
             return response;
         }
 
-        public async Task<ResponseModel<MedicoListarDTO>> buscarMediscoPorId(int medicoId)
+        public async Task<ResponseModel<MedicoListarDTO>> BuscarMedicoPorEmail(string email)
         {
             ResponseModel<MedicoListarDTO> response = new ResponseModel<MedicoListarDTO>();
 
-            using(var connection = new SqlConnection(_configuration.GetConnectionString("DefaultConnection")))
+            using (var connection = new SqlConnection(_configuration.GetConnectionString("DefaultConnection")))
             {
-                var medicoBanco = await connection.QueryFirstOrDefaultAsync<Medicos>("select * from Medicos where Id = @Id", new {Id = medicoId});
+                var medicoBanco = await connection.QueryFirstOrDefaultAsync<Medicos>(
+                    "SELECT * FROM Medicos WHERE Email = @Email", new { Email = email });
 
                 if (medicoBanco == null)
                 {
-                    response.Mensagem = "Nenhum medico locvalizado";
+                    response.Mensagem = "Médico não encontrado!";
                     response.Status = false;
                     return response;
                 }
 
-                var medicosMapeados = _mapper.Map<MedicoListarDTO>(medicoBanco);
-                response.Dados = medicosMapeados;
-                response.Mensagem = "Medico Localizado com sucesso!!";
+                var medicoMapeado = _mapper.Map<MedicoListarDTO>(medicoBanco);
+                response.Dados = medicoMapeado;
+                response.Mensagem = "Médico localizado com sucesso!";
             }
 
             return response;
-
-
         }
+
+        public async Task<ResponseModel<MedicoListarDTO>> BuscarMedicoPorId(int medicoId)
+        {
+            ResponseModel<MedicoListarDTO> response = new ResponseModel<MedicoListarDTO>();
+
+            using (var connection = new SqlConnection(_configuration.GetConnectionString("DefaultConnection")))
+            {
+                var medicoBanco = await connection.QueryFirstOrDefaultAsync<Medicos>(
+                    "select * from Medicos where Id = @Id", new { Id = medicoId });
+
+                if (medicoBanco == null)
+                {
+                    response.Mensagem = "Nenhum médico localizado";
+                    response.Status = false;
+                    return response;
+                }
+
+                var medicoMapeado = _mapper.Map<MedicoListarDTO>(medicoBanco);
+                response.Dados = medicoMapeado;
+                response.Mensagem = "Médico localizado com sucesso!";
+            }
+
+            return response;
+        }
+
 
         public async Task<ResponseModel<List<MedicoListarDTO>>> CriarMedico(MedicoCriarDto criarMedicoDto)
         {
             ResponseModel<List<MedicoListarDTO>> response = new ResponseModel<List<MedicoListarDTO>>();
+
+            // Verifica se a senha não está vazia antes de criptografar
+            if (!string.IsNullOrWhiteSpace(criarMedicoDto.Senha))
+            {
+                criarMedicoDto.Senha = BCrypt.Net.BCrypt.HashPassword(criarMedicoDto.Senha);
+            }
+            else
+            {
+                response.Mensagem = "A senha é obrigatória.";
+                response.Status = false;
+                return response;
+            }
 
             using (var connection = new SqlConnection(_configuration.GetConnectionString("DefaultConnection")))
             {
@@ -94,8 +128,7 @@ namespace GerenciarConsultas.Services
                 }
 
                 var medicosMapeados = _mapper.Map<List<MedicoListarDTO>>(medicos);
-
-                response.Dados = medicosMapeados;
+                response.Dados = medicosMapeados; // Retorna a lista completa
                 response.Mensagem = "Médico criado com sucesso.";
                 response.Status = true;
             }
@@ -106,7 +139,6 @@ namespace GerenciarConsultas.Services
 
         private static async Task<IEnumerable<Medicos>> ListarMedicos(SqlConnection connection)
         {
-
             var query = "select * from Medicos";
             var medicos = await connection.QueryAsync<Medicos>(query);
             return medicos.ToList();
@@ -116,11 +148,12 @@ namespace GerenciarConsultas.Services
         {
             ResponseModel<List<MedicoListarDTO>> response = new ResponseModel<List<MedicoListarDTO>>();
 
-             using (var connection = new SqlConnection(_configuration.GetConnectionString("DefaultConnection")))
+            using (var connection = new SqlConnection(_configuration.GetConnectionString("DefaultConnection")))
             {
-                var medicoBanco = await connection.ExecuteAsync("update Medicos set Nome = @Nome, Email = @Email, CRM = @CRM, Especialidade = @Especialidade where Id = @Id", medicoEditarDto);
-                
-                if(medicoBanco == 0)
+                var medicoBanco = await connection.ExecuteAsync(
+                    "update Medicos set Nome = @Nome, Email = @Email, CRM = @CRM, Especialidade = @Especialidade where Id = @Id", medicoEditarDto);
+
+                if (medicoBanco == 0)
                 {
                     response.Mensagem = "Ocorreu um erro ao editar";
                     response.Status = false;
@@ -128,15 +161,13 @@ namespace GerenciarConsultas.Services
                 }
 
                 var medicos = await ListarMedicos(connection);
+                var medicosMapeados = _mapper.Map<List<MedicoListarDTO>>(medicos);
 
-                var usuarioMapeados = _mapper.Map<List<MedicoListarDTO>>(medicos);
-
-                response.Dados = usuarioMapeados;
-                response.Mensagem = "Medicos Listados com sucesso!";
-
-
+                response.Dados = medicosMapeados;
+                response.Mensagem = "Médicos atualizados com sucesso!";
             }
-             return response;
+
+            return response;
         }
 
         public async Task<ResponseModel<List<MedicoListarDTO>>> RemoverMedico(int medicoId)
@@ -145,9 +176,10 @@ namespace GerenciarConsultas.Services
 
             using (var connection = new SqlConnection(_configuration.GetConnectionString("DefaultConnection")))
             {
-                var madicoBanco = await connection.ExecuteAsync("delete from Medicos where Id = @Id", new {Id = medicoId});
-                
-                if (madicoBanco == 0)
+                var medicoBanco = await connection.ExecuteAsync(
+                    "delete from Medicos where Id = @Id", new { Id = medicoId });
+
+                if (medicoBanco == 0)
                 {
                     response.Mensagem = "Ocorreu um erro ao remover";
                     response.Status = false;
@@ -155,13 +187,13 @@ namespace GerenciarConsultas.Services
                 }
 
                 var medicos = await ListarMedicos(connection);
-
                 var medicosMapeados = _mapper.Map<List<MedicoListarDTO>>(medicos);
 
                 response.Dados = medicosMapeados;
-                response.Mensagem = "Medicos deletado com sucesso";
+                response.Mensagem = "Médico deletado com sucesso";
             }
-            return response;    
+
+            return response;
         }
     }
 }

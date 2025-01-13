@@ -160,3 +160,5 @@ C:\Users\User\OneDrive\Documentos\TrabalhoFinal\GerenciadorDeConsultas_Back\Gere
 C:\Users\User\OneDrive\Documentos\TrabalhoFinal\GerenciadorDeConsultas_Back\GerenciarConsultas\obj\Debug\net8.0\GerenciarConsultas.pdb
 C:\Users\User\OneDrive\Documentos\TrabalhoFinal\GerenciadorDeConsultas_Back\GerenciarConsultas\obj\Debug\net8.0\GerenciarConsultas.genruntimeconfig.cache
 C:\Users\User\OneDrive\Documentos\TrabalhoFinal\GerenciadorDeConsultas_Back\GerenciarConsultas\obj\Debug\net8.0\ref\GerenciarConsultas.dll
+C:\Users\User\OneDrive\Documentos\TrabalhoFinal\GerenciadorDeConsultas_Back\GerenciarConsultas\bin\Debug\net8.0\BCrypt.Net-Next.dll
+C:\Users\User\OneDrive\Documentos\TrabalhoFinal\GerenciadorDeConsultas_Back\GerenciarConsultas\bin\Debug\net8.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll

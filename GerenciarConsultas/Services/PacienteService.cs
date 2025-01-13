@@ -11,6 +11,7 @@ namespace GerenciarConsultas.Services
     {
         private readonly IConfiguration _configuration;
         private readonly IMapper _mapper;
+       
 
         public PacienteService(IConfiguration configuration, IMapper mapper)
         {
@@ -81,18 +82,43 @@ namespace GerenciarConsultas.Services
             return response;
         }
 
+        public async Task<ResponseModel<PacienteDTO>> BuscarPacientePorEmail(string email)
+        {
+            ResponseModel<PacienteDTO> response = new ResponseModel<PacienteDTO>();
+
+            using (var connection = new SqlConnection(_configuration.GetConnectionString("DefaultConnection")))
+            {
+                var pacienteBanco = await connection.QueryFirstOrDefaultAsync<Pacientes>(
+                    "SELECT * FROM Pacientes WHERE Email = @Email", new { Email = email });
+
+                if (pacienteBanco == null)
+                {
+                    response.Mensagem = "Paciente não encontrado!";
+                    response.Status = false;
+                    return response;
+                }
+
+                var pacienteMapeado = _mapper.Map<PacienteDTO>(pacienteBanco);
+                response.Dados = pacienteMapeado;
+                response.Mensagem = "Paciente localizado com sucesso!";
+            }
+
+            return response;
+        }
 
 
         public async Task<ResponseModel<PacienteDTO>> CriarPaciente(PacienteCriarDto pacienteCriarDto)
         {
             ResponseModel<PacienteDTO> response = new ResponseModel<PacienteDTO>();
 
+            // Criptografar a senha antes de salvar no banco
+            pacienteCriarDto.Senha = BCrypt.Net.BCrypt.HashPassword(pacienteCriarDto.Senha);
+
             using (var connection = new SqlConnection(_configuration.GetConnectionString("DefaultConnection")))
             {
                 var pacienteBanco = await connection.ExecuteAsync(
-                   
-                   "INSERT INTO Pacientes(Nome, DataNascimento, Telefone, CPF, Email, Senha)"+
-                    "VALUES(@Nome, @DataNascimento, @Telefone, @CPF, @Email, @Senha)", pacienteCriarDto);
+                    "INSERT INTO Pacientes (Nome, DataNascimento, Telefone, CPF, Email, Senha) " +
+                    "VALUES (@Nome, @DataNascimento, @Telefone, @CPF, @Email, @Senha)", pacienteCriarDto);
 
                 if (pacienteBanco == 0)
                 {
@@ -104,12 +130,13 @@ namespace GerenciarConsultas.Services
                 var pacientes = await ListarPacientes(connection);
 
                 var pacientesMapeados = _mapper.Map<List<PacienteDTO>>(pacientes);
-                response.Dados = pacientesMapeados.FirstOrDefault();  // Pega o primeiro paciente da lista
+                response.Dados = pacientesMapeados.FirstOrDefault(); // Pega o primeiro paciente da lista
                 response.Mensagem = "Paciente criado com sucesso!";
             }
 
             return response;
         }
+
 
         private static async Task<IEnumerable<Pacientes>> ListarPacientes(SqlConnection connection)
         {
@@ -173,5 +200,7 @@ namespace GerenciarConsultas.Services
             }
             return response;
         }
+
+        
     }
 }

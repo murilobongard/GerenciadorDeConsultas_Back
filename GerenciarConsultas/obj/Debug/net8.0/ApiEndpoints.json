@@ -1,5 +1,37 @@
 [
   {
+    "ContainingType": "ApiConsultas.Controllers.CadastroController",
+    "Method": "CadastrarMedico",
+    "RelativePath": "api/Cadastro/medico",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "medico",
+        "Type": "GerenciarConsultas.Model.Medicos",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ApiConsultas.Controllers.CadastroController",
+    "Method": "CadastrarPaciente",
+    "RelativePath": "api/Cadastro/paciente",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "paciente",
+        "Type": "GerenciarConsultas.Model.Pacientes",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "GerenciarConsultas.Controllers.ConsultaController",
     "Method": "GetAll",
     "RelativePath": "api/Consulta",
@@ -73,6 +105,22 @@
       {
         "Name": "id",
         "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "GerenciarConsultas.Controllers.LoginController",
+    "Method": "Login",
+    "RelativePath": "api/Login/login",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "GerenciarConsultas.Controllers.LoginRequest",
         "IsRequired": true
       }
     ],
@@ -153,6 +201,22 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "GerenciarConsultas.Controllers.MedicoController",
+    "Method": "BuscarMedicoPorEmail",
+    "RelativePath": "api/Medico/email/{email}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "email",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "GerenciarConsultas.Controllers.PacienteController",
     "Method": "buscarPaciente",
     "RelativePath": "api/Paciente",
@@ -221,6 +285,22 @@
       {
         "Name": "pacienteId",
         "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "GerenciarConsultas.Controllers.PacienteController",
+    "Method": "BuscarPacientePorEmail",
+    "RelativePath": "api/Paciente/email/{email}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "email",
+        "Type": "System.String",
         "IsRequired": true
       }
     ],
