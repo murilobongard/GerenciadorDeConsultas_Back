@@ -17,6 +17,19 @@ namespace GerenciarConsultas.Controllers
             _pacienteInterface = pacienteInterface;
         }
 
+        [HttpGet("medico/{medicoId}")]
+        public async Task<IActionResult> BuscarPacientesPorMedico(int medicoId)
+        {
+            var pacientes = await _pacienteInterface.BuscarPacientesPorMedico(medicoId);
+
+            if (!pacientes.Status)
+            {
+                return NotFound(pacientes);
+            }
+
+            return Ok(pacientes);
+        }
+
         [HttpGet]
         public async Task<IActionResult> buscarPaciente()
         {
@@ -41,6 +54,7 @@ namespace GerenciarConsultas.Controllers
             }
             return Ok(paciente);
         }
+
         [HttpPost]
         public async Task<IActionResult> CriarPaciente(PacienteCriarDto pacienteCriarDto)
         {
@@ -51,6 +65,7 @@ namespace GerenciarConsultas.Controllers
             }
             return Ok(pacientes);
         }
+
         [HttpPut]
         public async Task<IActionResult> EditarPaciente(EditarPacienteDto editarPacienteDto)
         {
@@ -63,7 +78,6 @@ namespace GerenciarConsultas.Controllers
             return Ok(pacientes);
         }
 
-
         [HttpDelete]
         public async Task<IActionResult> deletarPaciente(int ususarioId)
         {
@@ -72,7 +86,7 @@ namespace GerenciarConsultas.Controllers
             if (pacientes.Status == false) { return BadRequest(pacientes); }
             return Ok(pacientes);
         }
-        
+
         [HttpGet("email/{email}")]
         public async Task<IActionResult> BuscarPacientePorEmail(string email)
         {
@@ -84,8 +98,6 @@ namespace GerenciarConsultas.Controllers
             }
             return Ok(paciente);
         }
-
-
     }
 
 }

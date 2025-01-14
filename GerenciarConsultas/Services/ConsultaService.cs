@@ -3,6 +3,7 @@ using System.Data;
 using GerenciarConsultas.Model;
 using GerenciarConsultas.Services;
 using GerenciarConsultas.DTO;
+using Microsoft.AspNetCore.Mvc;
 
 namespace GerenciarConsultas.Repository
 {
@@ -40,6 +41,42 @@ namespace GerenciarConsultas.Repository
                 TipoConsulta = c.TipoConsulta // Incluir tipo de consulta
             }).ToList();
 
+            response.Mensagem = "Consultas localizadas com sucesso!";
+            response.Status = true;
+            return response;
+        }
+
+        public async Task<ResponseModel<List<ConsultaListaDT0>>> BuscarConsultasPorMedico(int medicoId)
+        {
+            // Inicializa o modelo de resposta
+            ResponseModel<List<ConsultaListaDT0>> response = new ResponseModel<List<ConsultaListaDT0>>();
+
+            // Consulta as consultas do médico específico
+            var consultasBanco = await _dbConnection.QueryAsync<Consulta>(
+                "SELECT * FROM Consultas WHERE MedicoId = @MedicoId",
+                new { MedicoId = medicoId });
+
+            // Verifica se há consultas para o médico
+            if (!consultasBanco.Any())
+            {
+                response.Mensagem = "Nenhuma consulta encontrada para o médico especificado.";
+                response.Status = false;
+                return response;
+            }
+
+            // Mapeia as consultas para o DTO
+            response.Dados = consultasBanco.Select(c => new ConsultaListaDT0
+            {
+                Id = c.Id,
+                Data = c.Data,
+                ValorConsulta = c.ValorConsulta,
+                MedicoId = c.MedicoId,
+                PacienteId = c.PacienteId,
+                Observacoes = c.Observacoes,
+                TipoConsulta = c.TipoConsulta
+            }).ToList();
+
+            // Mensagem de sucesso
             response.Mensagem = "Consultas localizadas com sucesso!";
             response.Status = true;
             return response;
@@ -148,6 +185,27 @@ namespace GerenciarConsultas.Repository
 
 
 
+        public async Task<ResponseModel<List<Pacientes>>> BuscarPacientesPorMedico(int medicoId)
+        {
+            ResponseModel<List<Pacientes>> response = new ResponseModel<List<Pacientes>>();
+
+            var pacientesBanco = await _dbConnection.QueryAsync<Pacientes>(
+                "SELECT p.* FROM Pacientes p " +
+                "JOIN Consultas c ON c.PacienteId = p.Id " +
+                "WHERE c.MedicoId = @MedicoId", new { MedicoId = medicoId });
+
+            if (!pacientesBanco.Any())
+            {
+                response.Mensagem = "Nenhum paciente encontrado para o médico especificado.";
+                response.Status = false;
+                return response;
+            }
+
+            response.Dados = pacientesBanco.ToList();
+            response.Mensagem = "Pacientes localizados com sucesso!";
+            response.Status = true;
+            return response;
+        }
 
 
         public async Task<ResponseModel<List<ConsultaListaDT0>>> RemoverConsulta(int consultaId)
@@ -237,8 +295,6 @@ namespace GerenciarConsultas.Repository
             response.Status = true;
             return response;
         }
-
-
 
     }
 }

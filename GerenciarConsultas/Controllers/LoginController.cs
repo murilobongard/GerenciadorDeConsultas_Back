@@ -27,7 +27,6 @@ namespace GerenciarConsultas.Controllers
         [HttpPost("login")]
         public async Task<IActionResult> Login([FromBody] LoginRequest request)
         {
-            
             if (request == null)
             {
                 return BadRequest("O corpo da requisição está vazio.");
@@ -46,33 +45,35 @@ namespace GerenciarConsultas.Controllers
             if (request.Role == "medico")
             {
                 var medico = await _medicoService.BuscarMedicoPorEmail(request.Email);
-
                 if (medico == null || medico.Dados == null || !BCrypt.Net.BCrypt.Verify(request.Password, medico.Dados.Senha))
                 {
                     return Unauthorized("Credenciais inválidas.");
                 }
 
                 var token = GenerateJwtToken(medico.Dados.Email);
-                return Ok(new { token, role = "medico" });
-               
-                
+                Console.WriteLine($"Id do médico: {medico.Dados.Id}");
+                return Ok(new { token, role = "medico", id = medico.Dados.Id });
+
             }
-           
 
             if (request.Role == "paciente")
             {
-                var paciente = await _pacienteService.BuscarPacientePorEmail(request.Email);
-                if (paciente == null || paciente.Dados == null || !BCrypt.Net.BCrypt.Verify(request.Password, paciente.Dados.Senha))
+                var pacienteResponse = await _pacienteService.BuscarPacientePorEmail(request.Email);
+
+                if (pacienteResponse.Status == false || !BCrypt.Net.BCrypt.Verify(request.Password, pacienteResponse.Dados.Senha))
                 {
                     return Unauthorized("Credenciais inválidas.");
                 }
 
-                var token = GenerateJwtToken(paciente.Dados.Email);
-                return Ok(new { token, role = "paciente" });
+                var token = GenerateJwtToken(pacienteResponse.Dados.Email);
+
+                // Retornar o ID do paciente também
+                return Ok(new { token, role = "paciente", id = pacienteResponse.Dados.Id });
             }
 
-            return BadRequest("Role inválido.");
+            return BadRequest("Role inválida.");
         }
+
 
         private string GenerateJwtToken(string email)
         {

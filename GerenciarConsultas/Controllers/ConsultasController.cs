@@ -25,28 +25,25 @@ namespace GerenciarConsultas.Controllers
             var consultas = await _consultaService.BuscarConsultas();
             if (!consultas.Status)
             {
-                return NotFound(consultas.Mensagem); 
+                return NotFound(consultas.Mensagem);
             }
 
-            var consultaDTOs = _mapper.Map<IEnumerable<ConsultaDTO>>(consultas.Dados); 
+            var consultaDTOs = _mapper.Map<IEnumerable<ConsultaDTO>>(consultas.Dados);
             return Ok(consultaDTOs);
         }
 
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(int id)
         {
-          
             var consultaResponse = await _consultaService.BuscarConsultaPorId(id);
 
-           
             if (!consultaResponse.Status)
             {
-                return NotFound(consultaResponse.Mensagem);  
+                return NotFound(consultaResponse.Mensagem);
             }
 
-           
-            var consultaDTO = _mapper.Map<ConsultaDTO>(consultaResponse.Dados);  
-            
+            var consultaDTO = _mapper.Map<ConsultaDTO>(consultaResponse.Dados);
+
             return Ok(consultaDTO);
         }
 
@@ -81,9 +78,6 @@ namespace GerenciarConsultas.Controllers
             }
         }
 
-
-
-
         // Editar consulta existente
         [HttpPut("{id}")]
         public async Task<IActionResult> Update(int id, [FromBody] ConsultaEditarDto consultaEditarDto)
@@ -106,9 +100,28 @@ namespace GerenciarConsultas.Controllers
             }
         }
 
+        [HttpGet("medico/{medicoId}/pacientes")]
+        public async Task<IActionResult> GetPacientesPorMedico(int medicoId)
+        {
+            try
+            {
+                var pacientesResponse = await _consultaService.BuscarPacientesPorMedico(medicoId);
 
+                if (!pacientesResponse.Status)
+                {
+                    return NotFound(pacientesResponse.Mensagem);
+                }
 
+                var pacientesDTOs = _mapper.Map<IEnumerable<PacienteDTO>>(pacientesResponse.Dados);
+                return Ok(pacientesDTOs);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
 
+        
 
         // Remover consulta
         [HttpDelete("{id}")]

@@ -11,6 +11,6 @@ namespace GerenciarConsultas.Services
        Task<ResponseModel<List<PacienteCriarDto>>> EditarPaciente(EditarPacienteDto editarPacienteDto );
         Task<ResponseModel<List<PacienteCriarDto>>> RemoverPaciente(int pacienteId);
         Task<ResponseModel<PacienteDTO>> BuscarPacientePorEmail(string email);
-
+        Task<ResponseModel<List<PacienteDTO>>> BuscarPacientesPorMedico(int medicoId);
     }
     }

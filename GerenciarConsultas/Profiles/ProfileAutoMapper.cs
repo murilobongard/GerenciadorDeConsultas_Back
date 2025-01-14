@@ -20,8 +20,12 @@ namespace GerenciarConsultas.Profiles
             CreateMap<Consulta, ConsultaDTO>();
             CreateMap<ConsultaDTO, Consulta>();
             CreateMap<Pacientes, PacienteDTO>();
-           
-            CreateMap<Medicos, MedicoListarDTO>();
+
+            CreateMap<Medicos, MedicoListarDTO>()
+           .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
+           .ForMember(dest => dest.Nome, opt => opt.MapFrom(src => src.Nome))
+           .ForMember(dest => dest.Especialidade, opt => opt.MapFrom(src => src.Especialidade))
+           .ForMember(dest => dest.Email, opt => opt.MapFrom(src => src.Email));
             CreateMap<MedicoEditarDto, Medicos>();
 
             CreateMap<PacienteDTO, Pacientes>();

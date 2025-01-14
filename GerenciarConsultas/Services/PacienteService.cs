@@ -201,6 +201,32 @@ namespace GerenciarConsultas.Services
             return response;
         }
 
-        
+        public async Task<ResponseModel<List<PacienteDTO>>> BuscarPacientesPorMedico(int medicoId)
+        {
+            ResponseModel<List<PacienteDTO>> response = new ResponseModel<List<PacienteDTO>>();
+
+            using (var connection = new SqlConnection(_configuration.GetConnectionString("DefaultConnection")))
+            {
+                // Ajuste para buscar pacientes por medicoId
+                var pacientesBanco = await connection.QueryAsync<Pacientes>(
+                    "SELECT * FROM Pacientes WHERE MedicoId = @MedicoId", new { MedicoId = medicoId });
+
+                if (!pacientesBanco.Any())
+                {
+                    response.Status = false;
+                    response.Mensagem = "Nenhum paciente encontrado para este médico.";
+                    return response;
+                }
+
+                var pacientesMapeados = _mapper.Map<List<PacienteDTO>>(pacientesBanco);
+                response.Status = true;
+                response.Mensagem = "Pacientes encontrados!";
+                response.Dados = pacientesMapeados;
+            }
+
+            return response;
+        }
+
+
     }
 }

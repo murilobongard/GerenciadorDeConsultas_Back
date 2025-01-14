@@ -8,84 +8,89 @@ namespace GerenciarConsultas.Controllers
     [ApiController]
     public class MedicoController : ControllerBase
     {
-        private readonly IMedicoInterface _mediicoInterface;
-        public  MedicoController(IMedicoInterface mediicoInterface)
+        private readonly IMedicoInterface _medicoService;
+
+        public MedicoController(IMedicoInterface medicoService)
         {
-            _mediicoInterface = mediicoInterface;
+            _medicoService = medicoService;
         }
 
         [HttpGet]
-        public async Task<IActionResult> BuscarUsuarios()
+        public async Task<IActionResult> BuscarMedicos()
         {
-            var medicos = await _mediicoInterface.BuscarMedicos();  
-
-            if(medicos.Status == false)
+            var response = await _medicoService.BuscarMedicos();
+            if (!response.Status)
             {
-                return NotFound(medicos);
+                return NotFound(response.Mensagem);
             }
-            return Ok(medicos);
+            return Ok(response.Dados);
         }
 
-
-        [HttpGet("{medicoId}")]
-        public async Task<IActionResult> BuscarMedicoPorId(int medicoId)
+        [HttpGet("{id}")]
+        public async Task<IActionResult> BuscarMedicoPorId(int id)
         {
-            var medicos = await _mediicoInterface.BuscarMedicoPorId(medicoId);
-
-            if (medicos.Status == false)
+            var response = await _medicoService.BuscarMedicoPorId(id);
+            if (!response.Status)
             {
-                return NotFound(medicos);
+                return NotFound(response.Mensagem);
             }
-            return Ok(medicos);
+            return Ok(response.Dados);
         }
 
         [HttpPost]
-        public async Task<IActionResult> CriarMedico(MedicoCriarDto medicoCriarDto)
+        public async Task<IActionResult> CriarMedico([FromBody] MedicoCriarDto medicoCriarDto)
         {
-            var medicos = await _mediicoInterface.CriarMedico(medicoCriarDto);
-
-            if(medicos.Status == false)
+            var response = await _medicoService.CriarMedico(medicoCriarDto);
+            if (!response.Status)
             {
-                return BadRequest(medicos);   
+                return BadRequest(response.Mensagem);
             }
-            return Ok(medicos);
+            return Ok(response.Dados);
         }
 
-        [HttpPut]
-        public async Task<IActionResult> EditarUsuario(MedicoEditarDto medicoEditarDto)
+        [HttpPut("{id}")]
+        public async Task<IActionResult> EditarMedico(int id, [FromBody] MedicoEditarDto medicoEditarDto)
         {
-            var medicos = await _mediicoInterface.EditarMedico(medicoEditarDto);
-
-            if (medicos.Status == false)
+            medicoEditarDto.Id = id; // Certifique-se de que o ID está correto
+            var response = await _medicoService.EditarMedico(medicoEditarDto);
+            if (!response.Status)
             {
-                return NotFound(medicos);
+                return NotFound(response.Mensagem);
             }
-            return Ok(medicos);
+            return Ok(response.Dados);
         }
 
-        [HttpDelete]
-        public async Task<IActionResult> RemoverMedicos(int medicoId)
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> RemoverMedico(int id)
         {
-            var medicos = await _mediicoInterface.RemoverMedico(medicoId);
-
-            if (medicos.Status == false)
+            var response = await _medicoService.RemoverMedico(id);
+            if (!response.Status)
             {
-                return NotFound(medicoId);
+                return NotFound(response.Mensagem);
             }
-            return Ok(medicos);
+            return NoContent();
         }
+
         [HttpGet("email/{email}")]
         public async Task<IActionResult> BuscarMedicoPorEmail(string email)
         {
-            var medico = await _mediicoInterface.BuscarMedicoPorEmail(email);
-
-            if (medico.Status == false)
+            var response = await _medicoService.BuscarMedicoPorEmail(email);
+            if (!response.Status)
             {
-                return NotFound(medico);
+                return NotFound(response.Mensagem);
             }
-            return Ok(medico);
+            return Ok(response.Dados);
         }
 
-
+        [HttpGet("pacientes/{medicoId}")]
+        public async Task<IActionResult> BuscarPacientesPorMedico(int medicoId)
+        {
+            var response = await _medicoService.BuscarPacientesPorMedico(medicoId);
+            if (!response.Status)
+            {
+                return NotFound(response.Mensagem);
+            }
+            return Ok(response.Dados);
+        }
     }
 }

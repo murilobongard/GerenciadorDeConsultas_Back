@@ -9,4 +9,5 @@ public interface IMedicoInterface
     Task<ResponseModel<List<MedicoListarDTO>>> EditarMedico(MedicoEditarDto medicoEditarDto);
     Task<ResponseModel<List<MedicoListarDTO>>> RemoverMedico(int medicoId);
     Task<ResponseModel<MedicoListarDTO>> BuscarMedicoPorEmail(string email);
+    Task<ResponseModel<List<PacienteDTO>>> BuscarPacientesPorMedico(int medicoId); // Add this method
 }
