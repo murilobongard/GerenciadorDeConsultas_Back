@@ -32,9 +32,9 @@ builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowLocalhost", policy =>
     {
-        policy.WithOrigins("http://localhost:5173")  // Permitindo o front-end no localhost:5173
-              .AllowAnyMethod()  // Permitindo qualquer método HTTP (GET, POST, PUT, DELETE, etc.)
-              .AllowAnyHeader(); // Permitindo qualquer cabeçalho
+        policy.WithOrigins("http://localhost:5173")
+              .AllowAnyMethod()
+              .AllowAnyHeader();
     });
 });
 
@@ -79,10 +79,6 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
         };
     });
 
-// Configuração do arquivo de configuração
-builder.Configuration.SetBasePath(Directory.GetCurrentDirectory())  // Para garantir que o diretório correto seja usado
-    .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true);
-
 var app = builder.Build();
 
 // Configuração do pipeline de requisições
@@ -95,14 +91,13 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 // Habilitar CORS
-app.UseCors("AllowLocalhost");  // Habilitando o CORS com a política configurada
+app.UseCors("AllowLocalhost");
 
 // Habilitar autenticação e autorização
-app.UseAuthentication();  // Habilitar autenticação
-app.UseAuthorization();   // Habilitar autorização
+app.UseAuthentication();
+app.UseAuthorization();
 
 // Mapear os controllers
 app.MapControllers();
 
-// Iniciar a aplicação
 app.Run();

@@ -38,15 +38,16 @@ namespace GerenciarConsultas.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CriarMedico([FromBody] MedicoCriarDto medicoCriarDto)
+        public async Task<IActionResult> CriarMedico([FromBody] MedicoListarDTO medicoListarDTO)
         {
-            var response = await _medicoService.CriarMedico(medicoCriarDto);
+            var response = await _medicoService.CriarMedico(medicoListarDTO);
             if (!response.Status)
             {
                 return BadRequest(response.Mensagem);
             }
             return Ok(response.Dados);
         }
+
 
         [HttpPut("{id}")]
         public async Task<IActionResult> EditarMedico(int id, [FromBody] MedicoEditarDto medicoEditarDto)

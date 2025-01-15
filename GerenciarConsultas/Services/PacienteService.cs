@@ -146,15 +146,16 @@ namespace GerenciarConsultas.Services
         }
 
 
-        public async Task<ResponseModel<List<PacienteCriarDto>>> EditarPaciente(EditarPacienteDto editarPacienteDto)
+        public async Task<ResponseModel<PacienteDTO>> EditarPaciente(int id, EditarPacienteDto editarPacienteDto)
         {
-            ResponseModel<List<PacienteCriarDto>> response = new ResponseModel<List<PacienteCriarDto>>();
+            ResponseModel<PacienteDTO> response = new ResponseModel<PacienteDTO>();
 
             using (var connection = new SqlConnection(_configuration.GetConnectionString("DefaultConnection")))
             {
+                // Atualiza o paciente no banco com base no ID
                 var pacienteBanco = await connection.ExecuteAsync(
                     "UPDATE Pacientes SET Nome = @Nome, Email = @Email, Telefone = @Telefone, CPF = @CPF, DataNascimento = @DataNascimento WHERE Id = @Id",
-                    editarPacienteDto
+                    new { editarPacienteDto.Nome, editarPacienteDto.Email, editarPacienteDto.Telefone, editarPacienteDto.CPF, editarPacienteDto.DataNascimento, Id = id }
                 );
 
                 if (pacienteBanco == 0)
@@ -164,18 +165,31 @@ namespace GerenciarConsultas.Services
                     return response;
                 }
 
-                
-                var pacientes = await ListarPacientes(connection);
+                // Buscar o paciente atualizado no banco
+                var pacienteAtualizadoBanco = await connection.QueryFirstOrDefaultAsync<Pacientes>(
+                    "SELECT * FROM Pacientes WHERE Id = @Id", new { Id = id });
 
-                
-                var pacientesMapeados = _mapper.Map<List<PacienteCriarDto>>(pacientes);
+                if (pacienteAtualizadoBanco == null)
+                {
+                    response.Mensagem = "Paciente não encontrado após atualização.";
+                    response.Status = false;
+                    return response;
+                }
 
-                response.Dados = pacientesMapeados;
-                response.Mensagem = "Pacientes listados com sucesso.";
+                // Mapear o paciente para o DTO
+                var pacienteMapeado = _mapper.Map<PacienteDTO>(pacienteAtualizadoBanco);
+
+                // Configurar o retorno
+                response.Dados = pacienteMapeado;
+                response.Mensagem = "Paciente atualizado com sucesso.";
+                response.Status = true;
             }
 
             return response;
         }
+
+
+
 
         public async Task<ResponseModel<List<PacienteCriarDto>>> RemoverPaciente(int pacienteId)
         {

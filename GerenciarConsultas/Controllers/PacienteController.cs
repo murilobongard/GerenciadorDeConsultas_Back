@@ -54,29 +54,18 @@ namespace GerenciarConsultas.Controllers
             }
             return Ok(paciente);
         }
-
-        [HttpPost]
-        public async Task<IActionResult> CriarPaciente(PacienteCriarDto pacienteCriarDto)
+        [HttpPut("{id}")]
+        public async Task<IActionResult> EditarPaciente(int id, [FromBody] EditarPacienteDto editarPacienteDto)
         {
-            var pacientes = await _pacienteInterface.CriarPaciente(pacienteCriarDto);
-            if (pacientes.Status == false)
+            var pacienteAtualizado = await _pacienteInterface.EditarPaciente(id, editarPacienteDto);
+
+            if (pacienteAtualizado.Status == false)
             {
-                return BadRequest(pacientes);
+                return BadRequest(pacienteAtualizado);
             }
-            return Ok(pacientes);
+            return Ok(pacienteAtualizado);
         }
 
-        [HttpPut]
-        public async Task<IActionResult> EditarPaciente(EditarPacienteDto editarPacienteDto)
-        {
-            var pacientes = await _pacienteInterface.EditarPaciente(editarPacienteDto);
-
-            if (pacientes.Status == false)
-            {
-                return BadRequest(pacientes);
-            }
-            return Ok(pacientes);
-        }
 
         [HttpDelete]
         public async Task<IActionResult> deletarPaciente(int ususarioId)

@@ -8,9 +8,10 @@ namespace GerenciarConsultas.Services
         Task<ResponseModel<List<PacienteDTO>>> BuscarPacientes();
         Task<ResponseModel<PacienteDTO>> BuscarPacientesId(int pacienteId);
         Task<ResponseModel<PacienteDTO>> CriarPaciente(PacienteCriarDto pacienteCriarDto);
-       Task<ResponseModel<List<PacienteCriarDto>>> EditarPaciente(EditarPacienteDto editarPacienteDto );
+        Task<ResponseModel<PacienteDTO>> EditarPaciente(int id, EditarPacienteDto editarPacienteDto); // Alterado para aceitar 2 argumentos
         Task<ResponseModel<List<PacienteCriarDto>>> RemoverPaciente(int pacienteId);
         Task<ResponseModel<PacienteDTO>> BuscarPacientePorEmail(string email);
         Task<ResponseModel<List<PacienteDTO>>> BuscarPacientesPorMedico(int medicoId);
     }
-    }
+
+}

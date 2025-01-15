@@ -47,20 +47,52 @@ namespace GerenciarConsultas.Services
             return response;
         }
 
-        public async Task<ResponseModel<List<MedicoListarDTO>>> CriarMedico(MedicoCriarDto criarMedicoDto)
+        public async Task<ResponseModel<MedicoListarDTO>> CriarMedico(MedicoListarDTO medicoCriarDto) // Alterado para usar MedicoListarDTO
         {
-            var response = new ResponseModel<List<MedicoListarDTO>>();
-            var medico = _mapper.Map<Medicos>(criarMedicoDto);
+            var response = new ResponseModel<MedicoListarDTO>();
+
+            // Mapeando DTO para o modelo de dados Medico
+            var medico = new Medicos
+            {
+                Nome = medicoCriarDto.Nome,
+                CRM = medicoCriarDto.CRM,
+                Email = medicoCriarDto.Email,
+                Senha = medicoCriarDto.Senha,
+                Especialidade = medicoCriarDto.Especialidade
+            };
+
+            // Verificando se o médico já existe pelo CRM ou email
+            var medicoExistente = await _dbConnection.QueryFirstOrDefaultAsync<Medicos>(
+                "SELECT * FROM Medicos WHERE CRM = @CRM OR Email = @Email",
+                new { CRM = medico.CRM, Email = medico.Email });
+
+            if (medicoExistente != null)
+            {
+                response.Mensagem = "Médico com este CRM ou Email já existe.";
+                response.Status = false;
+                return response;
+            }
+
+            // Inserindo o médico no banco de dados
             var result = await _dbConnection.ExecuteAsync(
-                "INSERT INTO Medicos (Nome, Especialidade) VALUES (@Nome, @Especialidade)", medico);
+                "INSERT INTO Medicos (Nome, CRM, Email, Senha, Especialidade) VALUES (@Nome, @CRM, @Email, @Senha, @Especialidade)",
+                medico);
+
             if (result == 0)
             {
                 response.Mensagem = "Erro ao criar médico.";
                 response.Status = false;
                 return response;
             }
-            return await BuscarMedicos();
+
+            // Retornando o DTO do médico criado
+            response.Dados = _mapper.Map<MedicoListarDTO>(medico);
+            response.Mensagem = "Médico criado com sucesso!";
+            response.Status = true;
+            return response;
         }
+
+
 
         public async Task<ResponseModel<List<MedicoListarDTO>>> EditarMedico(MedicoEditarDto medicoEditarDto)
         {

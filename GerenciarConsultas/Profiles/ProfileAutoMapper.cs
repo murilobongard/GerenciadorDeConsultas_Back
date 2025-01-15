@@ -22,14 +22,31 @@ namespace GerenciarConsultas.Profiles
             CreateMap<Pacientes, PacienteDTO>();
 
             CreateMap<Medicos, MedicoListarDTO>()
-           .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
-           .ForMember(dest => dest.Nome, opt => opt.MapFrom(src => src.Nome))
-           .ForMember(dest => dest.Especialidade, opt => opt.MapFrom(src => src.Especialidade))
-           .ForMember(dest => dest.Email, opt => opt.MapFrom(src => src.Email));
-            CreateMap<MedicoEditarDto, Medicos>();
+     .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
+     .ForMember(dest => dest.Nome, opt => opt.MapFrom(src => src.Nome))
+     .ForMember(dest => dest.CRM, opt => opt.MapFrom(src => src.CRM))
+     .ForMember(dest => dest.Especialidade, opt => opt.MapFrom(src => src.Especialidade))
+     .ForMember(dest => dest.Email, opt => opt.MapFrom(src => src.Email))
+     .ForMember(dest => dest.Senha, opt => opt.MapFrom(src => src.Senha));
+            CreateMap<MedicoCriarDto, Medicos>()
+    .ForMember(dest => dest.Nome, opt => opt.MapFrom(src => src.Nome))
+    .ForMember(dest => dest.CRM, opt => opt.MapFrom(src => src.CRM))
+    .ForMember(dest => dest.Especialidade, opt => opt.MapFrom(src => src.Especialidade))
+    .ForMember(dest => dest.Email, opt => opt.MapFrom(src => src.Email))
+    .ForMember(dest => dest.Senha, opt => opt.MapFrom(src => src.Senha));
+
+            CreateMap<MedicoEditarDto, Medicos>()
+                .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
+                .ForMember(dest => dest.Nome, opt => opt.MapFrom(src => src.Nome))
+                .ForMember(dest => dest.CRM, opt => opt.MapFrom(src => src.CRM))
+                .ForMember(dest => dest.Especialidade, opt => opt.MapFrom(src => src.Especialidade))
+                .ForMember(dest => dest.Email, opt => opt.MapFrom(src => src.Email));
+               
+
+
 
             CreateMap<PacienteDTO, Pacientes>();
-            CreateMap<MedicoCriarDto, Medicos>();
+            CreateMap<EditarPacienteDto, PacienteDTO>();
 
         }
 
